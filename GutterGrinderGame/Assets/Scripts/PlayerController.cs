@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     int groundTouches;
     float lastGrounded = -99f, lastJumpPressed = -99f;
     bool jumpHeld;
+    [HideInInspector] public int blockCount;
 
     void Awake()
     {
@@ -66,7 +67,8 @@ public class PlayerController : MonoBehaviour
         {
             // buffered tap released before landing = short hop, not full height
             float force = jumpHeld ? jumpForce : jumpForce * 0.55f;
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, force);
+            float x = blockCount > 0 ? 0f : rb.linearVelocity.x;
+            rb.linearVelocity = new Vector2(x, force);
             lastJumpPressed = -99f;
             lastGrounded = -99f;
             grounded = false;
@@ -76,8 +78,12 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.linearVelocity = new Vector2(runSpeed, rb.linearVelocity.y);
+        float x = blockCount > 0 ? 0f : runSpeed;
+        rb.linearVelocity = new Vector2(x, rb.linearVelocity.y);
     }
+
+    public void Block() { blockCount++; }
+    public void Unblock() { blockCount = Mathf.Max(0, blockCount - 1); }
 
     public void TryJump()
     {
