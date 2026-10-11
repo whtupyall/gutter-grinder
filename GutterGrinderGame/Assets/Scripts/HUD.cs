@@ -36,7 +36,7 @@ public class HUD : MonoBehaviour
             if (!QuestSystem.Instance.shroomUnlocked)
                 questText.text = $"Quest: Kill Grubs {QuestSystem.Instance.grubKills}/10 -> unlock Shroom";
             else if (ZoneSystem.Instance != null && ZoneSystem.Instance.currentZone == 0)
-                questText.text = $"Unlock Rooftops: {GameManager.Instance.totalKills}/50 kills + Dagger {WeaponSystem.Instance.daggerLevel}/15";
+                questText.text = $"Unlock Rooftops: {GameManager.Instance.totalKills}/50 kills + Core {WeaponSystem.Instance.coreLevel}/15";
             else
                 questText.text = $"Shrooms: {QuestSystem.Instance.shroomKills} Batics: {QuestSystem.Instance.baticKills}";
         }

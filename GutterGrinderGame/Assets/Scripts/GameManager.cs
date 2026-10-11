@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetString("gg_coins", coins.ToString("R"));
         PlayerPrefs.SetFloat("gg_best", bestDistance);
         PlayerPrefs.SetInt("gg_kills", totalKills);
-        if (WeaponSystem.Instance != null) PlayerPrefs.SetInt("gg_dagger", WeaponSystem.Instance.daggerLevel);
+        if (WeaponSystem.Instance != null) PlayerPrefs.SetInt("gg_core", WeaponSystem.Instance.coreLevel);
         if (QuestSystem.Instance != null)
         {
             PlayerPrefs.SetInt("gg_grub", QuestSystem.Instance.grubKills);
@@ -113,6 +113,6 @@ public class GameManager : MonoBehaviour
     {
         PlayerPrefs.DeleteAll();
         coins = 0; totalKills = 0; distance = 0; bestDistance = 0;
-        if (WeaponSystem.Instance != null) WeaponSystem.Instance.daggerLevel = 0;
+        if (WeaponSystem.Instance != null) WeaponSystem.Instance.coreLevel = 0;
     }
 }

@@ -47,7 +47,7 @@ public class PrestigeSystem : MonoBehaviour
             GameManager.Instance.totalKills = 0;
             GameManager.Instance.distance = 0;
         }
-        if (WeaponSystem.Instance != null) WeaponSystem.Instance.daggerLevel = 0;
+        if (WeaponSystem.Instance != null) WeaponSystem.Instance.coreLevel = 0;
         if (QuestSystem.Instance != null) QuestSystem.Instance.ResetKills();
         if (ZoneSystem.Instance != null) ZoneSystem.Instance.ResetToZero();
 

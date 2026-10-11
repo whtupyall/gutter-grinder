@@ -37,8 +37,14 @@ JUMP [CONFIRMED]: Variable height, coyote time, buffering, little/no air steerin
 OPTIONAL ROUTES [CONFIRMED]: Elevated, rewards/secrets/rare enemies/risk-reward, rejoin main, never block core.
 DASH [CONFIRMED]: Early unlock, separate button, burst, short cooldown, 1 air dash reset on landing, upgrades = distance+cooldown only. [OPEN] exact values/animation.
 
-COMBAT [CONFIRMED]: Auto-attack, first enemy simple ground, later flyers/specialists/elites/variants/rares, distinct loot tables, stronger takes time up to cap, upgrades/actives help. Enemy HP scales with progression; Scrap earnings scale to fund upgrades.
-NO DEATH RULE [CONFIRMED - UPDATED 2026-10-10]: Player cannot die. Enemies block progress only. Time cost only. No stall over 15 sec on regular enemies - guaranteed kill by 15 sec via scaling/pity damage. No indefinite stall.
+COMBAT DAMAGE MODEL [CONFIRMED 2026-10-11]:
+- Biome normals = always 1-hit KO at base.
+- Stronger bot (elite/variant, rarer spawn) unlockable via Upgrade tab.
+- Monster evolutions (quest/upgrade rewards) raise HP and break insta-kill.
+- To restore insta-kill: buy Damage upgrades in Upgrade tab (one-time unlocks), NOT from Equipment tab.
+- Equipment tab (1st tab, deferred) = CPS ONLY, never raises hit damage. [RECONCILE: WeaponSystem dagger +1 DMG +1 CPS violates this; must rework to CPS-only when equipment unlocks. Base prototype damage stays 1 until Damage upgrades exist.]
+- Auto-hit 0.4s + first-hit-on-touch + stop only on survivors + 12s pity (15s max regulars) + bosses can wall all stay.
+NO DEATH RULE [CONFIRMED]: Player cannot die. Enemies block progress only. 15-sec max regulars via pity, bosses exempt can wall with alternatives.
 ENCOUNTER [CONFIRMED]: 1-hit kill = attack while passing, else stop + auto-fight, manual ranged alongside, bosses stop progress.
 PRESENTATION [CONFIRMED]: HP bars, rarity indicators, hit flash, particles/damage numbers, destruction anims, drops.
 BOSSES [CONFIRMED - UPDATED 2026-10-10]: Required + optional, key rewards for required, extras/secrets for optional, early = HP/stat checks. Bosses EXEMPT from 15-sec cap - can be unbeatable walls requiring upgrades/farming/prestige. Must always provide alternative progress (other biome/farm/upgrades) so boss wall never = no actions left. [OPEN] behavior/formulas/transitions.
@@ -57,7 +63,7 @@ ART DIRECTION [CONFIRMED]: Detailed pixel, crisp shapes, rich env, colorful pale
 AUDIO [CONFIRMED]: Retro catchy + sci-fi atmospheric, per-biome tracks, mech SFX, music/SFX separate + mute, modular/compressed for Android.
 
 CURRENCIES [CONFIRMED]: SCRAP (main, junk+kills, auto-collect, ordinary progression), SPECIAL (later, biomes/bosses/elites/events/farm, for equip/craft/unlocks), PREMIUM = Golden Cogs [CONFIRMED 2026-10-10] (real money + earnable via rewards/ads/dailies/weeklies, buying fastest but F2P path exists).
-UPGRADES [CONFIRMED]: Categories Combat/Economy/Movement/Collection/Unlocks/Permanent, no XP/levels, early affordable, hybrid scaling gradual+milestone jumps, Buy 1/10/Max, no tradeoffs, all branches eventually unlockable, slowdown -> alternatives/farm/prestige not wall.
+UPGRADES [CONFIRMED]: Categories Combat/Economy/Movement/Collection/Unlocks/Permanent, no XP/levels, early affordable, hybrid scaling gradual+milestone jumps, Buy 1/10/50/Max (50 added per Idle Slayer ref 2026-10-11), no tradeoffs, all branches eventually unlockable, slowdown -> alternatives/farm/prestige not wall.
 TREES [CONFIRMED]: Branching via milestones/discoveries/bosses/prestige, no specialization lock, all unlockable, no exclusive choices, clear descriptions/comparisons.
 MILESTONES [CONFIRMED]: Rewards+content+story, small frequent/major occasional, subtle indicators. RESPEC [CONFIRMED 2026-10-10]: No manual respec - prestige IS respec (Normal resets run, Advanced resets Normal tree).
 EQUIPMENT [CONFIRMED]: Later not opening, no constant replacement, categories weapons/armor/cores/gadgets/parts, sources drops/bosses/explore/quests/craft/milestones/rares, stats only no visual change, player choice + recommendations, comparison screen. RARITY [CONFIRMED 2026-10-10 Arc1]: 4 tiers Common/Rare/Epic/Legendary + named Uniques as special Legendaries. [DEFERRED] exact stats/sets/bonuses to playtesting.
@@ -83,7 +89,13 @@ AUTOMATION/OFFLINE [CONFIRMED - UPDATED 2026-10-10]: Light convenience not full 
 
 NORMAL RESET MATRIX [CONFIRMED 2026-10-10 - Full reset except Codex]: Resets Scrap/run upgrades/ordinary progression/special stored resources+ mats/equipment items+inventory+overflow/crafting run inventory+temp progress/companion run levels+temp/region run progress. Persists: Normal tree+currency, Codex incl recipe knowledge as discovery (must re-craft), premium currency, settings. Farm untouched by Normal (even after Advanced unlock). Advanced tree/currency untouched by Normal. Active temp boosts end on prestige with warning (Choice A).
 
-MENUS [CONFIRMED]: Landscape, hub overlay over running world, gameplay continues in menus, logical tabs, easy common access, new tabs explain + first action. TABS: Upgrades, Equipment, Companions, Quests, Codex, Crafting, Prestige.
+MENUS [CONFIRMED]: Landscape, right-side hub panel over running world (Idle Slayer style, original art only), gameplay continues while open, top bar Scrap + CPS, bottom icon tab bar + X close. TABS: Equipment, Upgrades, Quests, Golden Cogs shop, Misc (Upgrades/achievements/settings/prestige/codex-bestiaire/news). New tabs explain + first action.
+IDLE SLAYER STRUCTURE [CONFIRMED DIRECTION 2026-10-11 from screenshots]:
+- Equipment tab = DEFERRED to later unlock [CONFIRMED 2026-10-11]: not at start. Unlock via quest then buy with upgrades. Base game runs on Upgrades/Quests/Scrap/CPS first. When unlocked: CPS-only leveling slots + Buy 1/10/50/Max. 4 tiers + Uniques + sets + limited inventory/overflow also deferred to same later stage (not base).
+- Upgrades tab = one-time unlocks: run Boost ability, coin value +1, mystery caches/random events on touch, coin->CPS %, CPS +% bonuses, unlock new monsters/variants/elites, unlock equipment tab/rows later. Green Debloquer buttons.
+- Quests tab = kill-count bars with Reclamer/Verrouille, incl daily/weekly. Rewards feed Upgrade tab (monster evolutions, ranged weapon, CPS). Gate for equipment unlock.
+- Golden Cogs shop = DEFERRED detail (perm 1/5 vs temp-only undecided, pending your call). No direct gear/resource sales (prestige-wipe rule stays).
+- Misc tab = achievements/settings/prestige/bestiaire/news.
 HUD [CONFIRMED]: Main currency visible, compact objective/resource, readable not obscuring, brief popups, clear comparisons.
 CONTROLS [CONFIRMED]: Touch launch, jump right edge, large comfy, dash/ranged separate, spaced, tap default, adjustable size/pos, reset default, fixed speed (upgraded capped).
 ACCESSIBILITY [CONFIRMED]: Separate audio, reduced motion, shake toggle, reduced flashes, clear cues, color-independent, readable.
@@ -100,7 +112,8 @@ PRESTIGE+BOOSTS [CONFIRMED A]: Boosts end on prestige. Confirm screen lists boos
 RECONCILE: Old baseline no meaningful advantage vs current temp boosts allowed. Interpretation: temp acceleration ok, permanent power/direct resettable sales no. Balance deferred.
 
 ONBOARDING [CONFIRMED]: Short cinematic, brief playable junkyard, minimal text, running quickly, controls/upgrades first, gradual equip/companions/quests/craft/prestige, clear explains + help, dismissible recs, every system why/how/first action, optional dailies no gates, offline summary + suggestions, every session forward, frequent small + occasional major.
-UNLOCK ORDER [CONFIRMED 2026-10-10 provisional]: 1 Run+Jump start, 2 Dash early first-boss area, 3 Equipment mid-junkyard, 4 Crafting right after equipment, 5 Companions mid, 6 Ranged later milestone/boss, 7 Normal Prestige after major boss, 8 Advanced+Farm after Normal tree milestone.
+UNLOCK ORDER [CONFIRMED 2026-10-10 provisional, UPDATED 2026-10-11]: 1 Run+Jump start, 2 Dash early, 3 Core Parts CPS-only (replaces Dagger/Equipment early), 4 Crafting after core parts, 5 Companions mid, 6 Ranged later, 7 Equipment tab via quest+purchase deferred, 8 Normal Prestige after major boss, 9 Advanced+Farm after Normal milestone.
+CORE PARTS [CONFIRMED 2026-10-11 - replaces Dagger etc]: Early robot progression uses Core Parts (e.g. Rusty Core), NOT equipment names. Core Parts = CPS ONLY per damage model (no hit damage). Equipment tab + inventory stay deferred to quest unlock later. [RECONCILE: WeaponSystem code still named Dagger + gives +DMG; rework to CoreParts CPS-only + separate Damage upgrades next.]
 
 OTHER-CHAT 73.1-73.25: Two prestiges launch designed for more later, Advanced = new tree+mechanics helping rebuild, defer future resets, Normal resets run preserves tree awards currency, Advanced speeds rebuild + new branches/effects, unlock after Normal milestone, optional, resets run+Normal persists Advanced, own currency via resets, wipes run+Normal persists Advanced, milestones grant permanents+bonus, milestones main+optional, early improve then new mechanics, expands world, map remembers run resets + speed return, bosses key/optional, equip tiers, sets encourage mixed viable, companions D (stats then evolution/roles, forms persist run levels reset), quests improve then chains/region, no factions, crafting expands, recipes persist run inventory reset.
 

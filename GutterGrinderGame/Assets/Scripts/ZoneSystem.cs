@@ -11,9 +11,9 @@ public class ZoneSystem : MonoBehaviour
 
     // Unlock rules (tunable)
     public int zone1NeedKills = 50;
-    public int zone1NeedDagger = 15;
+    public int zone1NeedCore = 15;
     public int zone2NeedKills = 200;
-    public int zone2NeedDagger = 30;
+    public int zone2NeedCore = 30;
 
     readonly string[] names = { "Scrapyard", "Rooftops", "Sewers" };
     readonly float[] mults = { 1f, 3f, 8f };
@@ -39,9 +39,9 @@ public class ZoneSystem : MonoBehaviour
     {
         if (zone <= currentZone) return false;
         int kills = GameManager.Instance != null ? GameManager.Instance.totalKills : 0;
-        int dagger = WeaponSystem.Instance != null ? WeaponSystem.Instance.daggerLevel : 0;
-        if (zone == 1) return kills >= zone1NeedKills && dagger >= zone1NeedDagger;
-        if (zone == 2) return kills >= zone2NeedKills && dagger >= zone2NeedDagger;
+        int core = WeaponSystem.Instance != null ? WeaponSystem.Instance.coreLevel : 0;
+        if (zone == 1) return kills >= zone1NeedKills && core >= zone1NeedCore;
+        if (zone == 2) return kills >= zone2NeedKills && core >= zone2NeedCore;
         return false;
     }
 
@@ -49,9 +49,9 @@ public class ZoneSystem : MonoBehaviour
     {
         if (zone == 0) return true;
         int kills = GameManager.Instance != null ? GameManager.Instance.totalKills : 0;
-        int dagger = WeaponSystem.Instance != null ? WeaponSystem.Instance.daggerLevel : 0;
-        if (zone == 1) return kills >= zone1NeedKills && dagger >= zone1NeedDagger;
-        if (zone == 2) return kills >= zone2NeedKills && dagger >= zone2NeedDagger;
+        int core = WeaponSystem.Instance != null ? WeaponSystem.Instance.coreLevel : 0;
+        if (zone == 1) return kills >= zone1NeedKills && core >= zone1NeedCore;
+        if (zone == 2) return kills >= zone2NeedKills && core >= zone2NeedCore;
         return false;
     }
 
