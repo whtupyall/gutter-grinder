@@ -1,0 +1,121 @@
+ANDROID INCREMENTAL GAME — MASTER WORKSHEET
+Version: Consolidated working master
+Status: DESIGN v1 APPROVED 2026-10-10 — READY FOR STAGED PROTOTYPE (one feature at a time, no big dumps)
+Working title: TBD
+Platform: Android
+Engine: Unity — stable version to be selected when development begins
+
+RULES:
+- DO NOT WRITE GAME CODE until entire design worksheet complete and user explicitly approves.
+- Preserve confirmed decisions. Flag conflicts, do not silently replace.
+- Design major systems at balanced high level before deep subsystems.
+- Numbers/balance deferred to playtesting.
+- Maintain portable master + handoff.
+- User is beginner: future instructions must be precise, practical, beginner-friendly.
+
+STATUS LABELS: [CONFIRMED] [OPEN] [DEFERRED] [RECONCILE] [PLANNED] [CONDITIONAL]
+
+CORE CONCEPT: 2D pixel-art incremental/idle, small robot auto-runner in evil-robot world. Auto-run, platforming, optional routes, auto-combat + manual actives, enemies/elites/bosses/loot, scrap/upgrades, biomes, equipment/inventory, crafting, companions, quests/collections/discoveries/secrets, Normal + Advanced Prestige, farm, automation, offline, 20-40h Arc 1 with satisfying ending.
+
+PLATFORM: Android only, Unity (stable version at start), Landscape, Touch.
+
+ART: Original only, free pixel-art tools ok, AI concepts ok + refinement, manageable workload.
+
+APPROACH: Small prototype -> expand, Git/backups, test on real phone, fix breakers fast, no giant code dumps.
+
+FUTURE WORKFLOW (after approval): small controlled Muse Spark prompts, one feature at a time, exact files + replace vs patch, Unity Inspector steps, test steps, no unrelated changes, beginner-friendly errors, backup + test each change.
+
+ARC 1 [CONFIRMED]: Must feel complete + satisfying ending. Includes Normal+Advanced Prestige, biomes, equipment/inventory, crafting, companions, quests/collections, farm, running/jumping/combat/bosses, saving/offline/settings. All 10 areas represented, none reserved for Arc 2.
+COMPLETION: 20-40h active target, validate in playtesting, idle spreads calendar, no artificial padding.
+ENDING [CONFIRMED]: Defeat major boss, resolve Arc 1 conflict, satisfying completion, tease larger mystery for Arc 2.
+SCOPE STRATEGY [CONFIRMED APPROACH D]: Minimum publishable complete game + dependencies first, then final launch content. Do not cut without explicit approval.
+ARC 2 [CONFIRMED]: Expansion, 3rd prestige.
+ARC 3 [CONDITIONAL]: Possible, 4th prestige. Do not design future prestiges early.
+
+MOVEMENT [CONFIRMED]: Auto-run, jump from start, speed upgradable capped, continuous forward world, robot stays ~same screen pos, world scrolls, space ahead visible.
+JUMP [CONFIRMED]: Variable height, coyote time, buffering, little/no air steering, mandatory jumps forgiving.
+OPTIONAL ROUTES [CONFIRMED]: Elevated, rewards/secrets/rare enemies/risk-reward, rejoin main, never block core.
+DASH [CONFIRMED]: Early unlock, separate button, burst, short cooldown, 1 air dash reset on landing, upgrades = distance+cooldown only. [OPEN] exact values/animation.
+
+COMBAT [CONFIRMED]: Auto-attack, first enemy simple ground, later flyers/specialists/elites/variants/rares, distinct loot tables, stronger takes time up to cap, upgrades/actives help. Enemy HP scales with progression; Scrap earnings scale to fund upgrades.
+NO DEATH RULE [CONFIRMED - UPDATED 2026-10-10]: Player cannot die. Enemies block progress only. Time cost only. No stall over 15 sec on regular enemies - guaranteed kill by 15 sec via scaling/pity damage. No indefinite stall.
+ENCOUNTER [CONFIRMED]: 1-hit kill = attack while passing, else stop + auto-fight, manual ranged alongside, bosses stop progress.
+PRESENTATION [CONFIRMED]: HP bars, rarity indicators, hit flash, particles/damage numbers, destruction anims, drops.
+BOSSES [CONFIRMED - UPDATED 2026-10-10]: Required + optional, key rewards for required, extras/secrets for optional, early = HP/stat checks. Bosses EXEMPT from 15-sec cap - can be unbeatable walls requiring upgrades/farming/prestige. Must always provide alternative progress (other biome/farm/upgrades) so boss wall never = no actions left. [OPEN] behavior/formulas/transitions.
+RANGED [CONFIRMED]: Later major upgrade from salvaged parts, milestone/boss/material reveal + anim/sound, manual button, 1 shot/tap, cooldown, no ammo, straight projectile, can miss, single-target then piercing/chain upgrades, works on bosses. [OPEN] values/state machine.
+MENUS+COMBAT [CONFIRMED]: Menus do NOT pause world. Small indicators, no constant interrupts.
+WORLD GEN [CONFIRMED]: Continuous endless, hybrid chunks+random, validated no impossible jumps/unfair blocks.
+BIOMES [CONFIRMED]: Unlock via progression, selectable for runs, art/audio/enemies/resources/milestones/discoveries differ, controls consistent, biome-specific hazards/secrets ok, unlock via milestones/resources/bosses/challenges/discoveries, brief announce no stop.
+RESOURCES [CONFIRMED]: Each biome signature resource, some shared, earlier biomes stay useful for mats/quests/secrets, not best scrap forever.
+BIOME COUNT [CONFIRMED 2026-10-10]: Minimum 4, no less. Stretch to 5-6 if workload allows. Scope Strategy D still applies - validate vs workload.
+BIOME THEMES [PLANNED]: industrial/junkyard, overgrown, frozen, underground, high-tech, stranger late-game. Ruined Earth -> strange sci-fi.
+OPENING [CONFIRMED CONCEPT]: Moody junkyard, rust, glowing salvage, wake up, hostiles, mystery clue, first boss = security robot guarding salvage, milestone unlocks dash+area+story.
+PROTAGONIST [CONFIRMED]: Small hybrid silhouette, cute, salvaged, expressive face/pixel eyes, curious/charming/mysterious, recognizable base, skins cosmetic only.
+ENEMIES [CONFIRMED]: Weird/playful/memorable, funny but dangerous, hostile, distinct bodies/sizes, biome-specific + variants/elites/rares, no factions.
+LORE [CONFIRMED]: Evil robot takeover, survivor mystery, gradual reveal via bosses/ruins/data/discoveries, optional, charming/mysterious/humor/secrets, origin thread.
+ART DIRECTION [CONFIRMED]: Detailed pixel, crisp shapes, rich env, colorful palettes, mysterious lighting, manageable anim, medium robot, layered bg not obscuring hazards.
+AUDIO [CONFIRMED]: Retro catchy + sci-fi atmospheric, per-biome tracks, mech SFX, music/SFX separate + mute, modular/compressed for Android.
+
+CURRENCIES [CONFIRMED]: SCRAP (main, junk+kills, auto-collect, ordinary progression), SPECIAL (later, biomes/bosses/elites/events/farm, for equip/craft/unlocks), PREMIUM = Golden Cogs [CONFIRMED 2026-10-10] (real money + earnable via rewards/ads/dailies/weeklies, buying fastest but F2P path exists).
+UPGRADES [CONFIRMED]: Categories Combat/Economy/Movement/Collection/Unlocks/Permanent, no XP/levels, early affordable, hybrid scaling gradual+milestone jumps, Buy 1/10/Max, no tradeoffs, all branches eventually unlockable, slowdown -> alternatives/farm/prestige not wall.
+TREES [CONFIRMED]: Branching via milestones/discoveries/bosses/prestige, no specialization lock, all unlockable, no exclusive choices, clear descriptions/comparisons.
+MILESTONES [CONFIRMED]: Rewards+content+story, small frequent/major occasional, subtle indicators. RESPEC [CONFIRMED 2026-10-10]: No manual respec - prestige IS respec (Normal resets run, Advanced resets Normal tree).
+EQUIPMENT [CONFIRMED]: Later not opening, no constant replacement, categories weapons/armor/cores/gadgets/parts, sources drops/bosses/explore/quests/craft/milestones/rares, stats only no visual change, player choice + recommendations, comparison screen. RARITY [CONFIRMED 2026-10-10 Arc1]: 4 tiers Common/Rare/Epic/Legendary + named Uniques as special Legendaries. [DEFERRED] exact stats/sets/bonuses to playtesting.
+INVENTORY [CONFIRMED]: Limited + upgrades, sorting, overflow stash if full, bulk sell/dismantle, favorites locked, duplicates -> mats + collection, sets -> rewards+bonuses, codex persists. [OPEN] limits/values/tiers/formulas.
+CRAFTING [CONFIRMED - UPDATED 2026-10-10]: Hub-only, no world stations. Must unlock crafting first via early milestone. Simple early, deeper via Advanced. Recipe discoveries persist (Normal Codex + Advanced). Run inventory/temp resets. [DEFERRED] exact recipes/costs to playtesting.
+COMPANIONS [CONFIRMED]: Cosmetic variety, passive bonuses, helper roles, 1 visible follower, switch anytime, simple upgrades, acquire via resources/discoveries/quests/bosses/craft/rares. ADVANCED: [CONFIRMED D] early = stats/scaling, deeper = evolution/abilities/roles, forms/abilities persist, run levels/temp reset.
+CODEX [CONFIRMED]: journal/bestiary, sets, crafting collection, rewards, discoveries/secrets/data, starts simple expands, disposals don't erase. [OPEN] categories/rewards/lore amount.
+QUESTS [CONFIRMED]: Ongoing/story/discovery/daily/weekly/long-term/boss/hidden. Interface auto-update, track/select/claim, limited tracked, long-term background, compact daily display, clear main+optionals, no spam.
+EVENTS [CONFIRMED]: Spontaneous/timed, local timers, online later, rewards cosmetics/collections/resources/unique-returns-later, missed recur via later/craft/archive.
+DAILY/WEEKLY [CONFIRMED]: Fixed daily refresh, weekly optional, no streak penalties, no essential attendance gates.
+
+PRESTIGE PHILOSOPHY [CONFIRMED]: Reset+new layers, narratively recovering tech -> power, change mechanics not just numbers, player chooses when, no pressure, preview gains/resets/persists/boosts affected, understandable value.
+NORMAL [CONFIRMED]: Resets run, preserves Normal tree, awards Normal currency for upgrades/branches.
+ADVANCED [CONFIRMED]: Unlocks after Normal tree milestone, optional, resets run + entire Normal tree, Advanced tree persists, own unique currency via Advanced resets based on progression, milestones grant permanents+bonus, milestones = main+optional, early improves existing then new mechanics, expands world regions, map remembers regions but run progress resets + upgrades speed return, bosses key/optional as above, equip tiers expand, sets encourage but mixed viable, quests improve then chains/region stories, no factions, crafting expands, recipes persist.
+ADVANCED RESET [CONFIRMED]: Near-total restart: production stops, stored farm lost, ordinary currencies lost except prestige-persist currencies, farm upgrades/slots/assignments/tech/automation reset, Normal tree resets, Advanced tree + permanents persist + speed rebuild, no farm category directly preserved.
+BONUS STACKING [CONFIRMED]: Add within categories, multiply across. [DEFERRED] exact categories/formulas/caps.
+FUTURE PRESTIGES [CONFIRMED]: Do not design until first two complete.
+
+FARM (paused at 73.47, do not resume detail until audit complete):
+73.26 buyable farm part of Advanced. 73.27 multiple slots assignable. 73.28 slots via milestones/upgrades/Advanced unlocks. 73.29 upgrades levels speed/yield/storage + later tech. 73.30 stops at capacity then auto-collect/overflow unlock. 73.31 collect individual or collect-all incl partial, manual then auto unlock. 73.32 offline continues indefinitely within capacity, full stops. [RECONCILE with 4-8h general cap - treat separate unless chosen]. 73.33 free assign/change anytime. 73.34 progressive complexity rates/storage. 73.35-36 resets but permanents speed rebuild, nothing directly persists. 73.37 slots relock, permanents discount. 73.38 upgrade levels reset, permanents reduce cost + improve effectiveness. 73.39 assignments forgotten. 73.40 tech/automation reset, permanents reduce cost/earlier. 73.41 near-total restart as above. 73.42 deeper upgrades = stronger discounts/earlier/efficiency, no new mechanics. 73.43 hybrid stacking. 73.44 global across biomes, new biomes add resources, switching doesn't change production. 73.45 biome unlocks basic, rarer via milestones/discoveries/bosses. 73.46 commons multi-biome, rares mostly biome-specific. 73.47 commons persist later, some rares require return. NEXT 73.48 locked display - PAUSED.
+
+AUTOMATION/OFFLINE [CONFIRMED - UPDATED 2026-10-10]: Light convenience not full auto, preserve involvement, moderate offline scrap lower than active, offline combat sim later, general cap = 24h [CONFIRMED replaces 4-8h target], rewards scale with upgrades lower than active, return shows time+ gains + suggestions, optional ad/earned return bonus never required, no offline penalties, offline-first core, FARM SEPARATE: indefinite within slot storage, stops when full (73.32) - reconciled as two rules.
+
+NORMAL RESET MATRIX [CONFIRMED 2026-10-10 - Full reset except Codex]: Resets Scrap/run upgrades/ordinary progression/special stored resources+ mats/equipment items+inventory+overflow/crafting run inventory+temp progress/companion run levels+temp/region run progress. Persists: Normal tree+currency, Codex incl recipe knowledge as discovery (must re-craft), premium currency, settings. Farm untouched by Normal (even after Advanced unlock). Advanced tree/currency untouched by Normal. Active temp boosts end on prestige with warning (Choice A).
+
+MENUS [CONFIRMED]: Landscape, hub overlay over running world, gameplay continues in menus, logical tabs, easy common access, new tabs explain + first action. TABS: Upgrades, Equipment, Companions, Quests, Codex, Crafting, Prestige.
+HUD [CONFIRMED]: Main currency visible, compact objective/resource, readable not obscuring, brief popups, clear comparisons.
+CONTROLS [CONFIRMED]: Touch launch, jump right edge, large comfy, dash/ranged separate, spaced, tap default, adjustable size/pos, reset default, fixed speed (upgraded capped).
+ACCESSIBILITY [CONFIRMED]: Separate audio, reduced motion, shake toggle, reduced flashes, clear cues, color-independent, readable.
+PERF [CONFIRMED]: Broad Android incl older midrange, 60fps target 30 fallback, battery-conscious, no heavy bg, auto-quality + options.
+SAVING [CONFIRMED]: Save meaningful changes promptly not every frame, autosave + critical-action, layered backup/recovery, recover verified backup, explain+ask if multiple, atomic criticals, full reset deliberate confirm, remember prefs.
+CLOUD [CONFIRMED]: Optional, conflict screen, never silent overwrite.
+PRIVACY [CONFIRMED]: Offline-first, internet for purchases/ads/cloud only, most offline, local timers, minimize data, no accounts/analytics unless essential, isolate online.
+
+MONETIZATION PHILOSOPHY [CONFIRMED]: Encourage not force. F2P can complete Arc1, both prestiges, full story, earn premium, progress no mandatory purchases/forced ads. P2P smoother/faster. F2P more tedious ok but not miserable to push spend. No forced ads/paywalls/impossible walls/punitive grind/essential ad-gates/intrusive popups.
+PREMIUM [CONFIRMED]: Buy + earnable (rewarded ads/dailies/weeklies/selected), paying faster, F2P path exists.
+SHOP [CONFIRMED]: Do NOT sell equipment or permanent/stored resources (prestige deletes -> feels wasted). TEMPORARY BOOSTS ALLOWED: scrap/CPS, other currencies, resource/farm, infinite dash temp, spawn multipliers, combat/loot. COSMETICS ok: skins, VFX, companion looks, decorations, exclusives.
+SAFEGUARDS [CONFIRMED - UPDATED 2026-10-10]: Clear effects/durations pre-purchase, temp boost timers PAUSE offline/closed (no waste, Choice A), prevent ridiculous stacking, clearly temporary. [DEFERRED] prices/durations/limits/stacking.
+PRESTIGE+BOOSTS [CONFIRMED A]: Boosts end on prestige. Confirm screen lists boosts + time left + warn loss + allow cancel. No surprise loss.
+RECONCILE: Old baseline no meaningful advantage vs current temp boosts allowed. Interpretation: temp acceleration ok, permanent power/direct resettable sales no. Balance deferred.
+
+ONBOARDING [CONFIRMED]: Short cinematic, brief playable junkyard, minimal text, running quickly, controls/upgrades first, gradual equip/companions/quests/craft/prestige, clear explains + help, dismissible recs, every system why/how/first action, optional dailies no gates, offline summary + suggestions, every session forward, frequent small + occasional major.
+UNLOCK ORDER [CONFIRMED 2026-10-10 provisional]: 1 Run+Jump start, 2 Dash early first-boss area, 3 Equipment mid-junkyard, 4 Crafting right after equipment, 5 Companions mid, 6 Ranged later milestone/boss, 7 Normal Prestige after major boss, 8 Advanced+Farm after Normal tree milestone.
+
+OTHER-CHAT 73.1-73.25: Two prestiges launch designed for more later, Advanced = new tree+mechanics helping rebuild, defer future resets, Normal resets run preserves tree awards currency, Advanced speeds rebuild + new branches/effects, unlock after Normal milestone, optional, resets run+Normal persists Advanced, own currency via resets, wipes run+Normal persists Advanced, milestones grant permanents+bonus, milestones main+optional, early improve then new mechanics, expands world, map remembers run resets + speed return, bosses key/optional, equip tiers, sets encourage mixed viable, companions D (stats then evolution/roles, forms persist run levels reset), quests improve then chains/region, no factions, crafting expands, recipes persist run inventory reset.
+
+CURRENT-CHAT 73.1-73.4 [CONFIRMED 2026-10-10]: 73.1=B (Two systems, possible third later), 73.2=C (Currency plus milestone unlocks), 73.3=B (New goals/systems/stronger options), 73.4=B (Preview rewards/resets/persists/new content). Formally closed to match broader decisions.
+
+OPEN AUDIT LIST:
+- World/launch scope: final biome count, launch content per system
+- Combat: starting attack, state machine, formulas, cooldowns/hitboxes, boss behavior, anti-stall, unattended balance
+- Equipment+Prestige: Normal reset behavior for equip/inventory, full reset matrix, rarity/stats/sets
+- Crafting: recipes/stations/costs/unlocks
+- Offline: exact 4-8h cap, reconcile farm indefinite
+- Monetization: premium name, rates, shop prices, boost durations/limits/stacking, offline/closed behavior
+- Technical: save arch, cloud conflict flow, perf plan, Play checklist
+- Upgrades: respec needed?
+- Farm 73.48 paused
+
+NEXT STEPS:
+1 Use master + handoff. 2 Balanced audit not farm detail. 3 Dependencies. 4 Reset matrix. 5 High-level Qs (defer numbers). 6 Complete + ask approval. 7 After approval staged impl. 8 One feature at a time. 9 Update master before chat too long. DESIGN PHASE - NO CODE.
