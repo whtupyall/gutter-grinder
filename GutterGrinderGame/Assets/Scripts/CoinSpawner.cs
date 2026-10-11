@@ -1,31 +1,40 @@
 using UnityEngine;
 
+/// <summary>Step 4b: distance-based coins, random gaps. No timer loop.</summary>
 public class CoinSpawner : MonoBehaviour
 {
-    public float spawnInterval = 1.4f;
-    public float spawnX = 12f;
-    [Header("Art - drag coin sprite here (optional)")]
-    public Sprite coinSprite;
-    float timer;
+    public float minGap = 6f;
+    public float maxGap = 14f;
+
+    float nextSpawnX = 12f;
 
     void Update()
     {
-        timer += Time.deltaTime;
-        if (timer >= spawnInterval) { timer = 0f; SpawnArc(); }
+        var p = GameObject.FindGameObjectWithTag("Player");
+        if (p == null) return;
+        var ctl = p.GetComponent<PlayerController>();
+        if (ctl != null && ctl.blockCount > 0) return;
+
+        float px = p.transform.position.x;
+        if (px + 12f >= nextSpawnX)
+        {
+            SpawnCoins(nextSpawnX);
+            nextSpawnX += Random.Range(minGap, maxGap);
+        }
+        // init on first run
+        if (nextSpawnX < px) nextSpawnX = px + 12f;
     }
 
-    void SpawnArc()
+    void SpawnCoins(float x)
     {
-        // 5-coin arc at random height: ground / low / high
-        float[] ys = { -2f, 0f, 1.8f };
-        float y = ys[Random.Range(0, ys.Length)];
-        for (int i = 0; i < 5; i++)
+        float y = -2f;
+        for (int i = 0; i < 2; i++)
         {
             GameObject go = new GameObject("Coin");
-            go.transform.position = new Vector3(spawnX + i * 0.9f, y + Mathf.Sin(i * 0.8f) * 0.5f, 0);
+            go.transform.position = new Vector3(x + i * 0.9f, y + Mathf.Sin(i * 0.8f) * 0.4f, 0);
             var sr = go.AddComponent<SpriteRenderer>();
-            if (coinSprite != null) { sr.sprite = coinSprite; sr.color = Color.white; }
-            else { sr.color = Color.yellow; sr.sprite = MakeCircleSprite(); }
+            sr.color = Color.yellow;
+            sr.sprite = MakeCircleSprite();
             go.transform.localScale = Vector3.one * 0.45f;
             var col = go.AddComponent<CircleCollider2D>();
             col.isTrigger = true; col.radius = 0.6f;
