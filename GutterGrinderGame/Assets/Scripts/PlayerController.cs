@@ -1,23 +1,28 @@
 using UnityEngine;
 
-/// <summary>
-/// Fixed X runner. Tap/space to jump, hold for higher.
-/// Simple: grounded via touching Ground tag. No GroundCheck object needed.
-/// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
-    public float jumpForce = 11f;
+    public float runSpeed = 5f;
+    public float jumpForce = 16f;
+    public float coyoteTime = 0.12f;
+    public float jumpBuffer = 0.12f;
 
     Rigidbody2D rb;
     bool grounded;
     int groundTouches;
+    float lastGrounded = -99f, lastJumpPressed = -99f;
+    bool jumpHeld;
 
-    void Awake() { rb = GetComponent<Rigidbody2D>(); }
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        rb.freezeRotation = true;
+        rb.gravityScale = 2.2f;
+    }
 
     void Start()
     {
-        // Auto-wire JumpButton so no OnClick setup needed
         GameObject jb = GameObject.Find("JumpButton");
         if (jb != null)
         {
@@ -28,37 +33,69 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // Jump: Space, mouse, touch (old input - needs Active Input Handling = Both)
-        bool jumpPressed = Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0);
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began) jumpPressed = true;
-        if (jumpPressed) TryJump();
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+        {
+            lastJumpPressed = Time.time;
+            jumpHeld = true;
+        }
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        {
+            lastJumpPressed = Time.time;
+            jumpHeld = true;
+        }
 
-        // Variable jump: release early = shorter hop
-        bool jumpReleased = Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonUp(0);
-        if (jumpReleased && rb.linearVelocity.y > 0)
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
+        if (Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonUp(0))
+        {
+            jumpHeld = false;
+            if (rb.linearVelocity.y > 0)
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
+        }
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
+        {
+            jumpHeld = false;
+            if (rb.linearVelocity.y > 0)
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
+        }
+        // all touches gone = not held (button taps use TryJump, handled below)
+        if (Input.touchCount == 0 && Input.GetMouseButton(0) == false && Input.GetKey(KeyCode.Space) == false)
+            jumpHeld = false;
+
+        if (grounded) lastGrounded = Time.time;
+
+        if (Time.time - lastJumpPressed < jumpBuffer && Time.time - lastGrounded < coyoteTime)
+        {
+            // buffered tap released before landing = short hop, not full height
+            float force = jumpHeld ? jumpForce : jumpForce * 0.55f;
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, force);
+            lastJumpPressed = -99f;
+            lastGrounded = -99f;
+            grounded = false;
+            groundTouches = 0;
+        }
+    }
+
+    void FixedUpdate()
+    {
+        rb.linearVelocity = new Vector2(runSpeed, rb.linearVelocity.y);
     }
 
     public void TryJump()
     {
-        if (!grounded) return;
-        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-        grounded = false;
-        groundTouches = 0;
-        // squash stretch
-        transform.localScale = new Vector3(0.7f, 1.1f, 1) * 0.7f;
-        CancelInvoke(nameof(ResetSquash));
-        Invoke(nameof(ResetSquash), 0.15f);
+        lastJumpPressed = Time.time;
+        jumpHeld = true; // UI Button has no release signal, so treat as full hold for now
     }
-
-    void ResetSquash() { if (this != null) transform.localScale = Vector3.one * 0.7f; }
 
     void OnCollisionEnter2D(Collision2D c)
     {
         if (c.gameObject.CompareTag("Ground")) { groundTouches++; grounded = true; }
     }
+
     void OnCollisionExit2D(Collision2D c)
     {
-        if (c.gameObject.CompareTag("Ground")) { groundTouches = Mathf.Max(0, groundTouches - 1); if (groundTouches == 0) grounded = false; }
+        if (c.gameObject.CompareTag("Ground"))
+        {
+            groundTouches = Mathf.Max(0, groundTouches - 1);
+            if (groundTouches == 0) grounded = false;
+        }
     }
 }
