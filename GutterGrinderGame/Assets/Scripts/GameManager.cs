@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetString("gg_coins", coins.ToString("R"));
         PlayerPrefs.SetFloat("gg_best", bestDistance);
         PlayerPrefs.SetInt("gg_kills", totalKills);
-        if (WeaponSystem.Instance != null) PlayerPrefs.SetInt("gg_core", WeaponSystem.Instance.coreLevel);
+        if (WeaponSystem.Instance != null) WeaponSystem.Instance.SaveLevels();
         if (QuestSystem.Instance != null)
         {
             PlayerPrefs.SetInt("gg_grub", QuestSystem.Instance.grubKills);

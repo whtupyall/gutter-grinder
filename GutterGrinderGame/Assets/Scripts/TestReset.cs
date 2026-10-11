@@ -27,7 +27,9 @@ public class TestReset : MonoBehaviour
             GameManager.Instance.bestDistance = 0;
         }
         if (WeaponSystem.Instance != null)
-            WeaponSystem.Instance.coreLevel = 0;
+        {
+            foreach (var p in WeaponSystem.Instance.parts) p.level = 0;
+        }
         // persist the cleared values so the 5s autosave doesn't restore old numbers
         if (GameManager.Instance != null)
             GameManager.Instance.Save();
